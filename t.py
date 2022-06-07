@@ -85,3 +85,14 @@ def triangle(n):
 		print()
 triangle(_t)
 
+print("*************Letter Triangle***************")
+# outer loop
+st=65
+en=st+_t
+for i in range (st,en):
+    # inner loop
+    for j in range(st,i+1):
+        print(chr(j),end="")
+    print()
+
+
