@@ -72,7 +72,7 @@ while la<=qo:
  numr(qo)
  qo=qo-1
 
-print("*************Triangle****************")
+print("*************Triangle***************")
 
 def triangle(n):
 	k = n - 1
