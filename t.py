@@ -1,3 +1,5 @@
+'''
+
 n=int(input("Enter No of Lines:"))
 y=z=p=pp=qo=_t=n
 
@@ -96,3 +98,55 @@ for i in range (st,en):
     print()
 
 
+print()
+
+
+
+def trianglea(n):
+	k = n - 1
+	for i in range(0, n):
+		for j in range(0, k):
+			print(end=" ")
+		k = k - 1
+		for j in range(0, i+1):
+                        print(j, end="")
+		print()
+trianglea(_t)
+
+'''
+'''
+nm=int(input("num:"))
+l=[1,2,3,45,6,7,8,9]
+print(l)
+for i in range(0,nm):
+ #l+=[l.pop(0)]
+ print(l)
+print(l)
+
+'''
+
+'''
+
+x = "cat"
+def  f():
+ 
+ x="bird"
+
+ def g():
+  x="dog"
+  y="fi"
+  print(x)
+ g()
+f()
+'''
+'''
+n=9
+for i in range(n,0,-1):
+ print("* "*int(i),end="")
+ print() 
+'''
+
+
+for i in range(9,0,-1):
+       print(i,end="")
+       print()
