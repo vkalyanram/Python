@@ -15,3 +15,17 @@ class Solution(object):
 d=Solution()
 i=d.intToRoman(593)
 print(i)
+
+n=2
+if 0<=n<=25:
+   kth=n
+else:
+   kth=n%26
+y=[chr(x) for x in range(65,91)]
+print(y)
+s='A'
+res=''
+for i in s:
+  res+= y[((y.index(i))+kth)%26]
+print(res)
+
