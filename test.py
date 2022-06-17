@@ -102,3 +102,11 @@ if len(s)%3==0:
          result+=1
 else:
   result ="Invalid Signal"
+
+def marsExploration(s):
+    result=0
+    o="SOS"*int(len(s)/3)
+    for i,j in zip(s,o):
+        if i!=j:
+           result+=1
+    return result
