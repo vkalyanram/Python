@@ -28,4 +28,16 @@ res=''
 for i in s:
   res+= y[((y.index(i))+kth)%26]
 print(res)
+def ciphertext(s,n):
+ if 0<=n<=25:
+   kth=n
+ else:
+   kth=n%26
+ y=[chr(x) for x in range(65,91)]
+ res=''
+ for i in s:
+  res+= y[((y.index(i))-kth)]
+
+ return res
+print(ciphertext('KALYAN',2))
 
