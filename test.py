@@ -93,4 +93,12 @@ if __name__ == '__main__':
 
     fptr.close()
 
-
+s='SOSSOSSPSSXPS*S'
+result=0
+if len(s)%3==0:
+  k=[s[i:i+3] for i in range(0,len(s),3)] 
+  for j in k:
+      if j!='SOS':
+         result+=1
+else:
+  result ="Invalid Signal"
