@@ -41,3 +41,56 @@ def ciphertext(s,n):
  return res
 print(ciphertext('KALYAN',2))
 
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'caesarCipher' function below.
+#
+# The function is expected to return a STRING.
+# The function accepts following parameters:
+#  1. STRING s
+#  2. INTEGER k
+#
+
+def caesarCipher(s, k):
+    if 0<=k<=25:
+       kth=k
+    else:
+       kth=k%26
+    y=[chr(x) for x in range(65,91)]
+    res=''
+    for i in s:
+       if i not in y:
+         if i.upper() in y:
+            i=i.upper()
+            res+= y[((y.index(i))+kth)%26].lower()
+         else: 
+          res+=i 
+       else:   
+         res+= y[((y.index(i))+kth)%26]
+
+    return res 
+
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input().strip())
+
+    s = input()
+
+    k = int(input().strip())
+
+    result = caesarCipher(s, k)
+
+    fptr.write(result + '\n')
+
+    fptr.close()
+
+
