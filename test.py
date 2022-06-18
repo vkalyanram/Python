@@ -124,3 +124,11 @@ class G(E,F):pass
 l=G.mro()
 for i in l:
     print(i,end='\n')
+    
+import urllib.request
+f=urllib.request.urlopen('https://www.codingem.com/python-print-without-parenthesis/')
+f2=open("i.html","w")
+for line in f:
+  b=line.decode().strip()
+  f2.write(b)
+
