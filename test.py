@@ -34,19 +34,6 @@ def ciphertext(s,n):
  else:
    kth=n%26
  y=[chr(x) for x in range(65,91)]
-    
-  class A:pass
-class B:pass
-class C:pass
-class D(B,C,A):pass
-class E(D):pass
-class F(D):pass
-class G(E,F):pass
-
-l=G.mro()
-for i in l:
-    print(i,end='\n')
-  
  res=''
  for i in s:
   res+= y[((y.index(i))-kth)]
@@ -123,3 +110,17 @@ def marsExploration(s):
         if i!=j:
            result+=1
     return result
+
+
+
+class A:pass
+class B:pass
+class C:pass
+class D(B,C,A):pass
+class E(D):pass
+class F(D):pass
+class G(E,F):pass
+
+l=G.mro()
+for i in l:
+    print(i,end='\n')
