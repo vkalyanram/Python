@@ -1,0 +1,21 @@
+s= [x if (x<=5) else 'not matched' for x in [2,3,4,5,6]]
+print(s) 
+#mark_apple if apple_is_ripe else leave_it_unmarked for apple in apple_box
+
+import pandas as pd
+df = pd.read_csv (r'student.csv')
+address = [chr(x) for x in range(65,100)]
+df['Address']=address
+df['user']=[i for i in df.name]
+ 
+
+# block 1 - simple stats
+mean1 = df['mark'].mean()
+count1 = df['mark'].count()
+median1 = df['mark'].median() 
+df['mean']=[m for m in df.mark 1 if (m==abs(mean1)) 0 else]
+print (df)
+# print block 1
+print ('Mean Marks: ' + str(mean1))
+print ('Count of Marks: ' + str(count1))
+print ('Median Marks: ' + str(median1))
