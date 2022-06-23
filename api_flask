@@ -1,0 +1,17 @@
+from flask import Flask
+from flask_restful import Api,Resource
+
+app = Flask(__name__)
+api = Api(app)
+
+@app.route("/")
+def hello_world():
+    return "<p>Hello, World!</p>"
+@app.route("/sum/<int:a>,<int:b>")
+def sum1(a,b):
+    return str(a+b)
+@app.route("/avg/<int:a>,<int:b>")
+def avg1(a,b):
+    return str((a+b)/2)
+if __name__=="__main__":
+    app.run(debug=True)
