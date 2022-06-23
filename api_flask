@@ -17,3 +17,42 @@ if __name__=="__main__":
     app.run(debug=True)
     
     https://www.youtube.com/watch?v=GMppyAPbLYk
+    
+    *********************************************************
+    import pandas as pd
+
+#stat=mean
+#col=coloumn_name
+col="one"
+
+class CSV_data():
+
+
+ def __init__(self):
+     df = pd.read_csv (r'student.csv') 
+ def data_col_mean(self):
+    m1 = df['col'].mean()
+    df['Diff-Mean']=[(x-int(m1)) for x in df.col]
+    print ('Mean Marks: ' + str(m1))
+    print ('avgMeandiff Marks: ' + str(df['Diff-Mean'].median()))
+    print ('Min Meandiff Marks: ' + str(df['Diff-Mean'].min()))
+    print ('Max Meandiff Marks: ' + str(df['Diff-Mean'].max()))
+
+ def data_col_median(self):  
+    m2 = df['col'].median()
+    df['Diff-Median']=[(x-int(m2)) for x in df.col]
+   
+    print ('avgMediandiff Marks: ' + str(df['Diff-Median'].median())) 
+    print ('Min Mediandiff Marks: ' + str(df['Diff-Median'].min()))
+    print ('Max Mediandiff Marks: ' + str(df['Diff-Median'].max()))
+    
+
+
+c=CSV_data()
+print(c.df(head))
+
+**************************************************************************8
+
+
+
+
