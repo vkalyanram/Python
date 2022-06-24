@@ -131,4 +131,24 @@ f2=open("i.html","w")
 for line in f:
   b=line.decode().strip()
   f2.write(b)
+    
+    
+out=""
+c=1
+s="Kalyannn"
+for i in range(len(s)-1):
+    if s[i]==s[i+1]:
+       c+=1
+    else:
+       out=out+s[i]+str(c)
+       c=1
+out=out+s[i+1]+str(c)
+print(out)
+ot=""
+for i in range(len(out)):
+    if out[i].isalpha() and out[i+1].isdigit():
+       ot=ot+str(out[i])*int(out[i+1])
+             
+print(ot)
+    
 
