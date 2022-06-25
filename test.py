@@ -2,6 +2,12 @@ email="abc@abc.com"
 n=(email.split('@'))
 print("Hi {0}, Welcome to {1}".format((n[0].capitalize()),(((n[1].split('.'))[0]).capitalize())))
 
+s= [x if (x<=5) else 'not matched' for x in [2,3,4,5,6]]
+print(s) 
+#mark_apple if apple_is_ripe else leave_it_unmarked for apple in apple_box
+
+    
+
 class Solution(object):
     def intToRoman(self, num):
         dict = ["M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"]
