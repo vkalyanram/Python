@@ -2,12 +2,12 @@ from sys import argv
 
 class Ins():
     def __init__(self):
-            self.courses=[] #List of couses List[0]--java list[1]--ROR 
-            self.reg_emp_details={}  # dict for course--list of emps
+            self.courses=[] #List of couses 
+            self.reg_emp_details={}  # Registerd employees Dict
             self.c_id=(i for i in range(1001,1999)) # course id 
             self.course_id={} # dict for cid and list index of course 
             self.course_registration=[] #Course registration
-            self.course_allot=[]
+            self.course_allot=[] #Alloted courses list
 
     def add_couse(self,cn,ins,dt,mine,maxe):
             self.course_id[cn.upper()]=next(self.c_id)
@@ -20,7 +20,7 @@ class Ins():
                                   }        
             self.courses.append(self.course_details)
             
-    def reg_couse(self,cn,email):
+    def register_couse(self,cn,email):
             if cn in self.reg_emp_details.keys():
                 self.reg_emp_details[cn].append(email)
             else:
@@ -65,16 +65,28 @@ def main():
     f = open(file_path, 'r')
     Lines = f.readlines()
     for line in Lines:
-        process=line.strip().split(' ')
-        if process[0]=='ADD-COURSE-OFFERING': 
-                   a1.add_couse(process[1],process[2],process[3],process[4],process[5])
-                   print("OFFERING"+"-"+process[1].upper()+"-"+process[2].upper())
-        if process[0]=='REGISTER':
-                   print(a1.reg_couse(process[2].split('-')[1],process[1]))
-        if process[0]=='ALLOT-COURSE':
-                   a1.allot_course(process[1])
-        if process[0]=='CANCEL':
-                   a1.cancel_course(process[1])           
+        query=line.strip().split(' ')
+        if query[0]=='ADD-COURSE-OFFERING': 
+                   if len(query[1:])==5:
+                       a1.add_couse(query[1],query[2],query[3],query[4],query[5])
+                       print("OFFERING"+"-"+query[1].upper()+"-"+query[2].upper())
+                   else:
+                       print("INPUT_DATA_ERROR")     
+        if query[0]=='REGISTER':
+                   if len(query[1:])==2:
+                       print(a1.register_couse(query[2].split('-')[1],query[1]))
+                   else:
+                       print("INPUT_DATA_ERROR")     
+        if query[0]=='ALLOT-COURSE':
+                   if len(query)==2:
+                       a1.allot_course(query[1])
+                   else:
+                       print("INPUT_DATA_ERROR")          
+        if query[0]=='CANCEL':
+                   if len(query)==2: 
+                       a1.cancel_course(query[1])
+                   else:
+                       print("INPUT_DATA_ERROR")               
 if __name__ == "__main__":
     main()
 
