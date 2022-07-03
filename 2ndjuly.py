@@ -38,14 +38,14 @@ class Ins():
            if len([x for x in self.reg_emp_details.get(cod.split('-')[1])])<int(self.courses[(self.course_id.get(cod.split('-')[1]))-1001]['min_emp']):
                 self.course_registration.sort()
                 for i in self.course_registration:
-                    if cod.split('-')[1] in i: allot= allot+i+" "+str([x for x in self.reg_emp_details.get(cod.split('-')[1]) if i.split('-')[2] in x ][0])+" "+cod+" "+cod.split('-')[1]+" "+cod.split('-')[2]+" "+self.courses[(self.course_id.get(cod.split('-')[1]))-1001]['date']+" "+status+"\n"
+                    if cod.split('-')[1] in i: allot= allot+i+" "+str([x for x in self.reg_emp_details.get(cod.split('-')[1]) if i.split('-')[2].lower() in x][0].upper())+" "+"COURSE_CANCELED"+" "+cod.split('-')[1]+" "+cod.split('-')[2]+" "+self.courses[(self.course_id.get(cod.split('-')[1]))-1001]['date']+"\n"
                     print(allot,end="")
                     allot=""
            else:         
                 allot=""
                 self.course_registration.sort()
                 for i in self.course_registration:
-                    if cod.split('-')[1] in i: allot= allot+i+" "+str([x for x in self.reg_emp_details.get(cod.split('-')[1]) if i.split('-')[2] in x ][0])+" "+cod+" "+cod.split('-')[1]+" "+cod.split('-')[2]+" "+self.courses[(self.course_id.get(cod.split('-')[1]))-1001]['date']+" "+"ACCEPTED"+"\n"
+                    if cod.split('-')[1] in i: allot= allot+i+" "+" "+cod+" "+str([x for x in self.reg_emp_details.get(cod.split('-')[1]) if i.split('-')[2].lower() in x][0].upper())+" "+cod.split('-')[1]+" "+cod.split('-')[2]+" "+self.courses[(self.course_id.get(cod.split('-')[1]))-1001]['date']+" "+"ACCEPTED"+"\n"
                     print(allot,end="")
                     allot=""                   
     def cancel_course(self,cri): 
@@ -53,7 +53,10 @@ class Ins():
                     print(cri+" "+"CANCEL_REJECTED")   
             else:
                     (self.reg_emp_details.get(cri.split('-')[3])).remove([x for x in self.reg_emp_details.get(cri.split('-')[3]) if x.split('@')[0].upper()==cri.split('-')[2].upper()][0]) 
-                    print(cri+" "+"CANCEL_ACCEPTED")                 
+                    self.course_registration.remove(cri.upper())
+                    print(cri+" "+"CANCEL_ACCEPTED")
+                    
+
 def main():
     if len(argv) != 2:
         raise Exception("File path not entered")
