@@ -20,51 +20,91 @@ class LMS():
                  "max_emp":maxe
                                   }        
             self.courses.append(self.course_details)
+            course_offering_id=f'OFFERING-{cn}-{ins}'
+            return course_offering_id
+    @staticmethod        
+    def get_dict_values(dict_var,var):
+            dict_var=dict_var
+            return dict_var[var]        
+    @staticmethod
+    def get_name_from_email(email):
+            return email.split('@')[0].upper() 
+    @staticmethod
+    def get_list_value(list_var,var):
+            var1=[x for x in list_var if var.lower() in x]
+            return var1[0].upper()
+    @staticmethod
+    def get_command_value(command,index):
+            return command.split('-')[index]              
     #Function for course registration        
     def register_couse(self,cn,email):
             if cn in self.reg_emp_details.keys():
                 self.reg_emp_details[cn].append(email)
             else:
                 self.reg_emp_details[cn]=[email]
-            if int(self.courses[(self.course_id.get(cn))-1001]['max_emp'])>=len(self.reg_emp_details.get(cn)):
-                course_registration_id= "REG-COURSE"+"-"+email.split('@')[0].upper()+"-"+cn.upper()
+            index_of_the_course=self.get_dict_values(self.course_id,cn)-1001
+            comp1="max_emp"
+            comp1_val=self.get_dict_values(self.courses[index_of_the_course],comp1)
+            reg_emp_for_the_course=self.get_dict_values(self.reg_emp_details,cn)
+            if int(comp1_val)>=len(reg_emp_for_the_course):
+                course_registration_id=f'REG-COURSE-{self.get_name_from_email(email)}-{cn.upper()}'
                 self.course_registration.append(course_registration_id)
-                return course_registration_id+" "+"ACCEPTED"
+                return f'{course_registration_id} ACCEPTED'
             else:
                 self.reg_emp_details.get(cn).pop()
                 return "COURSE_FULL_ERROR"
     #Function to allot course                     
     def allot_course(self,cod):
-           self.course_allot.append(cod.split('-')[1])
+           self.course_allot.append(self.get_command_value(cod,1))
            allot=""
-           #Course will be cancelled here if minimum no of employees are not registered 
-           if len([x for x in self.reg_emp_details.get(cod.split('-')[1])])<int(self.courses[(self.course_id.get(cod.split('-')[1]))-1001]['min_emp']):
+           cn=self.get_command_value(cod,1)
+           index_of_the_course=self.get_dict_values(self.course_id,cn)-1001
+           comp2="min_emp"
+           comp2_val=self.get_dict_values(self.courses[index_of_the_course],comp2)
+           reg_emp_for_the_course=self.get_dict_values(self.reg_emp_details,cn)
+           if len(reg_emp_for_the_course)<int(comp2_val):
                 self.course_registration.sort()
                 for i in self.course_registration:
-                    if cod.split('-')[1] in i: allot= allot+i+" "+"COURSE_CANCELED"+str([x for x in self.reg_emp_details.get(cod.split('-')[1]) if i.split('-')[2].lower() in x][0].upper())+" "+cod.split('-')[1]+" "+cod.split('-')[2]+" "+self.courses[(self.course_id.get(cod.split('-')[1]))-1001]['date']+"\n"
-                    print(allot,end="")
-                    allot=""
+                    if cn in i: 
+                       emp_name=self.get_command_value(i,2)
+                       emp_email=self.get_list_value(reg_emp_for_the_course,emp_name)
+                       date=self.get_dict_values(self.courses[index_of_the_course],'date')
+                       instructor_name=self.get_dict_values(self.courses[index_of_the_course],'instructor')
+                       allot=f'{i} {emp_email} COURSE_CANCELED {cn} {instructor_name} {date}'
+                       print(allot) 
            #Course allotment will be done here if minimum no of employees registered          
            else:         
                 allot=""
                 self.course_registration.sort()
                 for i in self.course_registration:
-                    if cod.split('-')[1] in i: allot= allot+i+" "+" "+cod+" "+str([x for x in self.reg_emp_details.get(cod.split('-')[1]) if i.split('-')[2].lower() in x][0].upper())+" "+cod.split('-')[1]+" "+cod.split('-')[2]+" "+self.courses[(self.course_id.get(cod.split('-')[1]))-1001]['date']+" "+"ACCEPTED"+"\n"
-                    print(allot,end="")
-                    allot="" 
+                    if cn in i: 
+                       emp_name=self.get_command_value(i,2)
+                       emp_email=self.get_list_value(reg_emp_for_the_course,emp_name)
+                       date=self.get_dict_values(self.courses[index_of_the_course],'date')
+                       instructor_name=self.get_dict_values(self.courses[index_of_the_course],'instructor')
+                       allot=f'{i} {emp_email} {cod} {cn} {instructor_name} {date} CONFIRMED'
+                       print(allot)  
     #Function to cancel registration course                                  
-    def cancel_course(self,cri): 
-            if cri.split('-')[3] in self.course_allot: #If allotment of course is done then can't cancel registration
-                    print(cri+" "+"CANCEL_REJECTED")   
+    def cancel_course(self,cri):
+            cn=self.get_command_value(cri,3)  
+            if cn in self.course_allot: #If allotment of course is done then can't cancel registration
+                    status=f"{cri} CANCEL_REJECTED"
+                    return status   
             else:
-                    (self.reg_emp_details.get(cri.split('-')[3])).remove([x for x in self.reg_emp_details.get(cri.split('-')[3]) if x.split('@')[0].upper()==cri.split('-')[2].upper()][0]) 
+                    reg_emp_for_the_course=self.get_dict_values(self.reg_emp_details,cn)
+                    emp_name=self.get_command_value(cri,2)
+                    emp_email=self.get_list_value(reg_emp_for_the_course,emp_name)
+                    reg_emp_for_the_course.remove(emp_email.lower())
                     self.course_registration.remove(cri.upper())
-                    print(cri+" "+"CANCEL_ACCEPTED") #If allotment of course is not yet done then they can cancel registration
+                    status=f"{cri} CANCEL_ACCEPTED"
+                    return status #If allotment of course is not yet done then they can cancel registration
 def main():
     if len(argv) != 2:
         raise Exception("File path not entered")
     #Created Object for LMS class    
     obj=LMS()
+    max_args=5 #Input Validation for create course command
+    min_args=2 #Input Validation for all the commands apart from create course 
     #Read input commands from input txt file     
     file_path = argv[1]
     f = open(file_path, 'r')
@@ -73,24 +113,23 @@ def main():
     for line in Lines:
         query=line.strip().split(' ')
         if query[0]=='ADD-COURSE-OFFERING': 
-                   if len(query[1:])==5:
-                       obj.add_couse(query[1],query[2],query[3],query[4],query[5])
-                       print("OFFERING"+"-"+query[1].upper()+"-"+query[2].upper())
+                   if len(query[1:])==max_args:
+                       print(obj.add_couse(query[1],query[2],query[3],query[4],query[5]))
                    else:
                        print("INPUT_DATA_ERROR")     
         if query[0]=='REGISTER':
-                   if len(query[1:])==2:
+                   if len(query[1:])==min_args:
                        print(obj.register_couse(query[2].split('-')[1],query[1]))
                    else:
                        print("INPUT_DATA_ERROR")     
-        if query[0]=='ALLOT-COURSE':
-                   if len(query)==2:
+        if query[0]=='ALLOT':
+                   if len(query)==min_args:
                        obj.allot_course(query[1])
                    else:
                        print("INPUT_DATA_ERROR")          
         if query[0]=='CANCEL':
-                   if len(query)==2: 
-                       obj.cancel_course(query[1])
+                   if len(query)==min_args: 
+                       print(obj.cancel_course(query[1]))
                    else:
                        print("INPUT_DATA_ERROR")               
 if __name__ == "__main__":
