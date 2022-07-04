@@ -11,7 +11,7 @@ class LMS():
             self.course_allot=[] #Alloted courses list
     #Function to create a course, each course details stored in dictionary and that dictionary stored in list     
     def add_couse(self,cn,ins,dt,mine,maxe):
-            self.course_id[cn.upper()]=next(self.c_id)
+            self.course_id[cn]=next(self.c_id)
             self.course_details={
                 "course_name":cn,
                  "instructor":ins,
@@ -28,11 +28,11 @@ class LMS():
             return dict_var[var]        
     @staticmethod
     def get_name_from_email(email):
-            return email.split('@')[0].upper() 
+            return email.split('@')[0] 
     @staticmethod
     def get_list_value(list_var,var):
-            var1=[x for x in list_var if var.lower() in x]
-            return var1[0].upper()
+            var1=[x for x in list_var if var in x]
+            return var1[0]
     @staticmethod
     def get_command_value(command,index):
             return command.split('-')[index]              
@@ -56,7 +56,7 @@ class LMS():
     #Function to allot course                     
     def allot_course(self,cod):
            self.course_allot.append(self.get_command_value(cod,1))
-           allot=""
+           
            cn=self.get_command_value(cod,1)
            index_of_the_course=self.get_dict_values(self.course_id,cn)-1001
            comp2="min_emp"
@@ -94,8 +94,8 @@ class LMS():
                     reg_emp_for_the_course=self.get_dict_values(self.reg_emp_details,cn)
                     emp_name=self.get_command_value(cri,2)
                     emp_email=self.get_list_value(reg_emp_for_the_course,emp_name)
-                    reg_emp_for_the_course.remove(emp_email.lower())
-                    self.course_registration.remove(cri.upper())
+                    reg_emp_for_the_course.remove(emp_email)
+                    self.course_registration.remove(cri)
                     status=f"{cri} CANCEL_ACCEPTED"
                     return status #If allotment of course is not yet done then they can cancel registration
 def main():
